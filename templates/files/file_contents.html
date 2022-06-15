@@ -1,0 +1,99 @@
+{% load static %}
+<!--
+Author: W3Layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Hotel Booking Widget A Flat Responsive widget Template :: w3layouts</title>
+
+<!-- For-Mobile-Apps -->
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="{% static 'css/style-starter.css' %}">
+	<!-- Template CSS -->
+	<link href="{% static '//fonts.googleapis.com/css?family=Hind:400,500,600,700&display=swap' %}" rel="stylesheet">
+<meta name="keywords" content="Hotel Booking Widget Responsive, Login Form Web Template, Flat Pricing Tables, Flat Drop-Downs, Sign-Up Web Templates, Flat Web Templates, Login Sign-up Responsive Web Template, Smartphone Compatible Web Template, Free Web Designs for Nokia, Samsung, LG, Sony Ericsson, Motorola Web Design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- //For-Mobile-Apps -->
+
+<!-- Style --> <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" media="all" />
+
+</head>
+<body>
+  <div class="template">
+		<header id="site-header" class="fixed-top">
+			<div class="container">
+				<nav class="navbar navbar-expand-lg navbar-dark stroke">
+					<a class="navbar-brand" href="index.html">
+						<span class="fa fa-lightbulb-o"></span> Usance
+					</a>
+					<button class="navbar-toggler bg-gradient" type="button" data-toggle="collapse"
+						data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
+						aria-label="Toggle navigation"><span class="navbar-toggler-icon fa fa-bars"> </span>
+					</button>
+
+					<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+						<ul class="navbar-nav ml-auto">
+							<li class="nav-item active">
+								<a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+							</li>
+							{% if user.is_authenticated %}
+							<li class="nav-link effect-3">
+							<p>Hello, {{ user.first_name}}</p>
+						    </li>
+							<li class="nav-item">
+								<a class="nav-link effect-3" href="{% url 'logout' %}">Logout</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link effect-3" href="{% url 'profile' %}">Profile</a>
+							</li>
+							{% else %}
+							<li class="nav-item">
+								<a class="nav-link effect-3" href="{% url 'register' %}">Register</a>
+							</li>
+						
+							<li class="nav-item">
+								<a class="nav-link effect-3" href="{% url 'login' %}">Login</a>
+							</li>
+							{% endif %}
+							<li class="nav-item">
+								<a class="nav-link effect-3" href="{% url 'upload' %}">Convert</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link effect-3" href="{% url 'save_document' %}">Files</a>
+							</li>
+							
+						</ul>
+
+					</div>
+				</nav>
+			</div>
+		</header>
+	</div>
+
+<h1>Saved Documents </h1>
+
+	<div class="hotel">
+     <form action="" method="post">
+		 {% csrf_token %}
+		 <div class="ml-auto">
+			<button type="submit" class="btn btn-info">Save</button>
+		 </div>
+		 
+	 </form>
+     <h6>file uploads display here</h6>	
+	 <p>{{text}}</p>
+	</div>
+
+<div class="footer">
+     <p>Copyright &copy; 2015 Hotel Booking Widget. All Rights Reserved | Design by <a href="http://w3layouts.com">W3layouts</a></p>
+</div>
+
+</body>
+</html>
+

@@ -39,6 +39,17 @@ Author URL: http://w3layouts.com
 							<li class="nav-item active">
 								<a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
 							</li>
+							{% if user.is_authenticated %}
+							<li class="nav-link effect-3">
+							<p>Hello, {{ user.first_name}}</p>
+						    </li>
+							<li class="nav-item">
+								<a class="nav-link effect-3" href="{% url 'logout' %}">Logout</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link effect-3" href="{% url 'profile' %}">Profile</a>
+							</li>
+							{% else %}
 							<li class="nav-item">
 								<a class="nav-link effect-3" href="{% url 'register' %}">Register</a>
 							</li>
@@ -46,9 +57,14 @@ Author URL: http://w3layouts.com
 							<li class="nav-item">
 								<a class="nav-link effect-3" href="{% url 'login' %}">Login</a>
 							</li>
+							{% endif %}
 							<li class="nav-item">
 								<a class="nav-link effect-3" href="{% url 'upload' %}">Convert</a>
 							</li>
+							<li class="nav-item">
+								<a class="nav-link effect-3" href="{% url 'save_document' %}">Files</a>
+							</li>
+							
 						</ul>
 
 					</div>
@@ -85,28 +101,28 @@ Author URL: http://w3layouts.com
 					<div class="tab-main mx-auto text-md-center">
 
 						<input id="tab1" type="radio" name="tabs" checked>
-						<label for="tab1"><span class="fa fa-lock" aria-hidden="true"></span> Create Account</label>
+						<label for="tab1"><span class="fa fa-image" aria-hidden="true"></span> Convert Images</label>
 
 						<input id="tab2" type="radio" name="tabs">
-						<label for="tab2"><span class="fa fa-credit-card" aria-hidden="true"></span> Make
-							Payment</label>
+						<label for="tab2"><span class="fa fa-lock" aria-hidden="true"></span> Create Account</label>
 
 						<input id="tab3" type="radio" name="tabs">
-						<label for="tab3"><span class="fa fa-smile-o" aria-hidden="true"></span> Enjoy Yourself</label>
+						<label for="tab3"><span class="fa fa-download" aria-hidden="true"></span>Save text documents</label>
 						<input id="tab4" type="radio" name="tabs">
-						<label for="tab4"><span class="fa fa-trophy" aria-hidden="true"></span> Rewards</label>
+						<label for="tab4"><span class="fa fa-smile-o" aria-hidden="true"></span> Enjoy Yourself</label>
 						<section id="content1" data-aos="zoom-in">
+							<img src="{% static 'images/screen-2.png' %}" class="img-fluid" alt="mobile-image">
+						</section>
+						<section id="content2" data-aos="zoom-in">
 							<img src="{% static 'images/screen-1.png' %}" class="img-fluid" alt="mobile-image">
 						</section>
 
-						<section id="content2" data-aos="zoom-in">
-							<img src="{% static 'images/screen-2.png' %}" class="img-fluid" alt="mobile-image">
-						</section>
+						
 
-						<section id="content3" data-aos="zoom-in">
+						<section id="content4" data-aos="zoom-in">
 							<img src="{% static 'images/screen-3.png' %}" class="img-fluid" alt="mobile-image">
 						</section>
-						<section id="content4" data-aos="zoom-in">
+						<section id="content3" data-aos="zoom-in">
 							<img src="{% static 'images/screen-4.png' %}" class="img-fluid" alt="mobile-image">
 						</section>
 					</div>
@@ -155,11 +171,14 @@ Author URL: http://w3layouts.com
 
 						<h4>Easy to Manage Your All Data by This App!
 						</h4>
-						<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur hic odio voluptatem
-							tenetur
-							consequatur.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur hic odio
-							voluptatem tenetur
-							consequatur adipisicing elit.</p>
+						<p>We have a huge amount of documents every day and keeping a record of every hard copy is so old school. 
+							It consumes a lot more space and it's 
+							more difficult to keep track of which document is stored where and for sure the space will run out soon.
+
+							In order to avoid this entire scan your document and save them into your computer in text form and make a backup 
+							as well with the image to text converter. This way your documents are one click away and in case of the file gets 
+							corrupted you have the backup stored.  The paper gets destroyed 
+							over time and it's not safe to keep just documents when you can save them on your computer.</p>
 					</div>
 				</div>
 				<!-- //row-->

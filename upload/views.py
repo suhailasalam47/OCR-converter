@@ -1,5 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from .forms import *
+from django.contrib.auth.decorators import login_required
+from files.models import Folder, FolderImage, FolderText
+
 
 try:
     from PIL import Image
@@ -29,6 +32,8 @@ def uploader(request):
 			
 			instance = form.save()
 			print(text_from_image)
+			
+			request.Session['text'] = text_from_image
 	else:
 		form = ConverterForm()
 	context={
@@ -36,5 +41,23 @@ def uploader(request):
 		'form':form,
 		'instance': instance,
 	}
+	
 	return render(request, 'upload.html', context)
 
+
+@login_required(login_url='login')
+def save_document(request):
+    folder = Folder.objects.all()
+    context ={
+        'folder':folder,
+    }
+	
+    return render(request, 'files/file_list.html', context)
+
+
+def folder_uploads(request):
+	text_from_image= request.Session['text']
+	context = {
+		'text' : text_from_image,
+	}
+	return render(request, 'files/file_contents.html',context)

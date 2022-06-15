@@ -72,6 +72,15 @@ Author URL: http://w3layouts.com
     </div>
   </section>
 
+  {% if request.GET.command == 'verification' %}
+
+  <div class="container max-auto alert alert-info" role="alert" style="max-width: 900px; margin-top:100px;">
+    Thank you for registering with us.We have sent you a verification email to your email address  <a href="{{reg_form.email}}">{{request.GET.email}}</a> . Please verify it.
+    <br><br>
+    Already verified? <a href="{% url 'login'%}">Login</a>
+  </div>
+
+  {% else %}
 
   <!-- /contact-form -->
   <section class="w3l-contact-main">
@@ -79,7 +88,7 @@ Author URL: http://w3layouts.com
       <div class="container py-lg-3">
         <div class="top-map">
           <div class="map-content-9">
-            <form action="login" method="post">
+            <form action="{% url 'login' %}" method="post">
                 {% csrf_token %}
               <div class="form-top1">
                 <h3 class="hny-title text-center mb-lg-5 mb-4" data-aos="fade-down">Login</h3>
@@ -90,7 +99,7 @@ Author URL: http://w3layouts.com
                   <div class="form-top-righ" data-aos="fade-up">
                     <input type="password" name="password" id="w3lName" placeholder="Password" required="">
                   </div>
-                  
+                  <p class="text-right"> <a href="{% url 'forgot_password' %}"> Forgot Password? </a></p>
                 </div>
                 <div class="text-center">
                   <button type="submit">Login</button>
@@ -104,21 +113,26 @@ Author URL: http://w3layouts.com
 
 
   </section>
+  {% endif %}
   <!-- //contact-form -->
 
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  
   <div>
     {% for message in messages %}
-    <h4>{{ message }}</h4>
+    <script>
+      swal("{{message}}");
+    </script>
     {% endfor %}
-  </div>
+  </div> -->
+  <!-- //contact-form
 
   <!-- footer -->
   <footer class="w3l-footer-16">
     <div class="footer-content py-lg-5 py-4 text-center">
       <div class="container">
         <div class="copy-right">
-      <h6>Made with <span class="fa fa-heart" aria-hidden="true"></span> love Designed by <a
-						href="https://w3layouts.com">W3layouts</a> </h6>
+      
 
           <ul class="footer-gd-16">
             <li>© 2020 Usance. </li>

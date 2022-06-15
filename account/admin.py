@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.contrib.auth.models import User
+from .models import Account
 
 # Register your models here.
-list_editable=['is_active',]
+admin.site.register(Account)

@@ -38,15 +38,21 @@ Author URL: http://w3layouts.com
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
               </li>
+              {% if user.is_authenticated %}
+              <li class="nav-item active">
+                <a class="nav-link effect-3" href="{% url 'logout' %}">Logout</a>
+              </li>
+              {% else %}
+
               <li class="nav-item">
                 <a class="nav-link effect-3" href="{% url 'register' %}">Register</a>
               </li>
               <li class="nav-item active">
                 <a class="nav-link effect-3" href="{% url 'login' %}">Login</a>
               </li>
-             
+             {% endif %}
               <li class="nav-item">
-                <a class="nav-link effect-3" href="pricing.html">Files</a>
+                <a class="nav-link effect-3" href="{% url 'save_document' %}">Files</a>
               </li>
               
             </ul>
@@ -107,18 +113,23 @@ Author URL: http://w3layouts.com
 
     <div class="row">
     <div class="col-md-6">
-      {% if text %}
-      <h4 class="text-center">Text from Image</h4>
+      
+          <form action="{% url 'save_document' %}" method="post">
+            {% csrf_token %}
+            {% if text %}
+      <u><h3 class="text-center">Text from Image</h3></u>
       {{text|linebreaks}}
-      <button type="submit">Save</button>
+            
+          <button type="submit">Save</button>
+          </form>
       {% endif %}
       </div>
 
     <div class="col-md-6">
       
 	    {% if instance %}
-      <h4 class="text-center">Uploaded Image</h4>
-	     <img src='{{ instance.image_to_convert.url }}' height="800px" width="700px">
+     <u><h3 class="text-center">Uploaded Image</h3></u> 
+	     <img src='{{ instance.image_to_convert.url }}' height="600px" width="500px">
 	     {% endif %}
     </div>
   </div>

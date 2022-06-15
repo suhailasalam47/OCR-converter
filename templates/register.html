@@ -71,7 +71,7 @@ Author URL: http://w3layouts.com
       </div>
     </div>
   </section>
-
+  <!-- {% include 'alert.html' %} -->
 
   <!-- /contact-form -->
   <section class="w3l-contact-main">
@@ -79,31 +79,33 @@ Author URL: http://w3layouts.com
       <div class="container py-lg-3">
         <div class="top-map">
           <div class="map-content-9">
-            <form action="register" method="post">
+            <form action="{% url 'register' %}" method="post">
                 {% csrf_token %}
               <div class="form-top1">
                 <h3 class="hny-title text-center mb-lg-5 mb-4" data-aos="fade-down">Registration Form</h3>
                
                   <div class="form-top-righ" data-aos="fade-up">
-                    <input type="text" name="first_name" id="w3lName" placeholder="Name" required=""><br>
+                    {{ reg_form.first_name }}
                   </div>
                   <div class="form-top-righ" data-aos="fade-up">
-                    <input type="text" name="username" id="w3lName" placeholder="UserName" required=""><br>
+                    {{ reg_form.username }}
                   </div>
                   <div class="form-top-righ" data-aos="fade-up">
-                    <input type="email" name="email" id="w3lSender" placeholder="Email*" required=""><br>
+                    {{ reg_form.email }}
                   </div>
                   <div class="form-top-righ" data-aos="fade-up">
-                    <input type="password" name="password1" id="w3lName" placeholder="Password" required="">
+                    {{ reg_form.password }}
                   </div>
                   <div class="form-top-righ" data-aos="fade-up">
-                    <input type="password" name="password2" id="w3lName" placeholder="Confirm Password" required="">
+                    {{ reg_form.confirm_password }}
                   </div>
                 </div>
                 <div class="text-center">
                   <button type="submit">Register</button>
                 </div>
               </div>
+              {{ reg_form.email.errors }}
+              {{ reg_form.non_field_errors }}
             </form>
           </div>
           
@@ -112,12 +114,16 @@ Author URL: http://w3layouts.com
     </div>
   </section>
 
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  
   <div>
     {% for message in messages %}
-    <h4>{{ message }}</h4>
+    <script>
+      swal("{{message}}");
+    </script>
     {% endfor %}
-  </div>
-  <!-- //contact-form -->
+  </div> -->
+  <!-- //contact-form
 
   <!-- footer -->
   <footer class="w3l-footer-16">
