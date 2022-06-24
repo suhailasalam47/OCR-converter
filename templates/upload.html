@@ -17,6 +17,7 @@ Author URL: http://w3layouts.com
   <link href="//fonts.googleapis.com/css?family=Hind:400,500,600,700&display=swap" rel="stylesheet">
   <!-- Template CSS -->
 
+ 
 </head>
 
 <body>
@@ -26,7 +27,7 @@ Author URL: http://w3layouts.com
       <div class="container">
         <nav class="navbar navbar-expand-lg navbar-dark stroke">
           <a class="navbar-brand" href="index.html">
-            <span class="fa fa-lightbulb-o"></span> Usance
+            <span class="fa fa-lightbulb-o"></span> OCR Converter
           </a>
           <button class="navbar-toggler bg-gradient" type="button" data-toggle="collapse"
             data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
@@ -86,7 +87,7 @@ Author URL: http://w3layouts.com
       <div class="container py-lg-3">
         <div class="top-map">
           <div class="map-content-9">
-            <form method="post" enctype="multipart/form-data">
+            <form method="post" enctype="multipart/form-data" action="{{ f.get_url }}">
               {% csrf_token %}
               
               <div class="form-top1">
@@ -95,7 +96,22 @@ Author URL: http://w3layouts.com
                  
               <div class="form-top">
                 <div class="form-top-righ" data-aos="fade-up">
-                {{ form.image_to_convert }}
+                  <!-- <div>
+                    {{ form.image_to_convert }}
+                  </div>  -->
+                  <input type="file" id="myFileInput" name="uploaded_img"> 
+                  
+                  <script> 
+                    document.querySelector('#myFileInput').addEventListener("change", function() {
+                      const reader = new FileReader();
+              
+                      reader.addEventListener("load", () => {
+                          localStorage.setItem("recent-image", reader.result);
+                      });
+              
+                      reader.readAsDataURL(this.files[0]);
+                  });
+                </script>
                   
                  </div>
               </div>
@@ -111,29 +127,62 @@ Author URL: http://w3layouts.com
         </div>
       </div>
 
+     
+       
+      <form action="{% url 'save_document' %}" method="post">
+        {% csrf_token %}
     <div class="row">
     <div class="col-md-6">
       
-          <form action="{% url 'save_document' %}" method="post">
-            {% csrf_token %}
             {% if text %}
       <u><h3 class="text-center">Text from Image</h3></u>
+      <div class="text-center">
       {{text|linebreaks}}
-            
-          <button type="submit">Save</button>
-          </form>
+      </div>
       {% endif %}
       </div>
 
     <div class="col-md-6">
       
-	    {% if instance %}
+	    {% if text %}
      <u><h3 class="text-center">Uploaded Image</h3></u> 
-	     <img src='{{ instance.image_to_convert.url }}' height="600px" width="500px">
+	     <img src='' height="600px" width="500px" id="img">
+
+       <script>
+		
+        document.addEventListener("DOMContentLoaded", () => {
+          const recentImageDataUrl = localStorage.getItem("recent-image");
+      
+          if (recentImageDataUrl) {
+            document.querySelector('#img').setAttribute("src", recentImageDataUrl);
+          }
+        });
+  
+       </script>
 	     {% endif %}
+      
     </div>
   </div>
 
+  {% if text %}
+  <div class="row">
+    <div class="col-6 text-center">
+      <br><br><br>
+      <button type="submit">Save</button>
+    </div>
+    <div class="col-6">
+      <div class="checkbox checkbox-info">
+        <br><br><br>
+        <input id="check4" class="check-info" type="checkbox" name="checkbox">
+        <label for="check4"> Save Image </label>
+      </div>
+          
+          
+    </div>
+
+  </div>
+  {% endif %}
+</form>
   </section>
   <!-- //contact-form -->
 
@@ -155,6 +204,17 @@ Author URL: http://w3layouts.com
         </button>
       </div>
     </div>
+    
+  <!-- messages -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  
+    <div>
+      {% for message in messages %}
+      <script>
+        swal("{{message}}");
+      </script>
+      {% endfor %}
+    </div> -->
 
     <!-- move top -->
     <script>

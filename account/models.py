@@ -37,8 +37,7 @@ class MyAccountManager(BaseUserManager):
         user.is_superadmin = True
         user.is_active = True
         user.save(using=self._db)
-        return user
-         
+        return user   
 
 
 class Account(AbstractBaseUser, PermissionsMixin):

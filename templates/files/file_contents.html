@@ -30,7 +30,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<div class="container">
 				<nav class="navbar navbar-expand-lg navbar-dark stroke">
 					<a class="navbar-brand" href="index.html">
-						<span class="fa fa-lightbulb-o"></span> Usance
+						<span class="fa fa-lightbulb-o"></span> OCR Converter
 					</a>
 					<button class="navbar-toggler bg-gradient" type="button" data-toggle="collapse"
 						data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
@@ -40,7 +40,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
 						<ul class="navbar-nav ml-auto">
 							<li class="nav-item active">
-								<a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+								<a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
 							</li>
 							{% if user.is_authenticated %}
 							<li class="nav-link effect-3">
@@ -78,17 +78,45 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 <h1>Saved Documents </h1>
 
-	<div class="hotel">
-     <form action="" method="post">
-		 {% csrf_token %}
-		 <div class="ml-auto">
-			<button type="submit" class="btn btn-info">Save</button>
+	<div class="container">
+     <form action="{{ f.get_url }}" method="post">
+		{% csrf_token %}
+		 <div class="row">
+			 
+			 <div class="col-7"></div>
+			 <div class="col-4">
+				<input type="text" name="file_name" placeholder="File name " class="form-control">
+			 </div>
+			 <div class="col-1">
+				<div class="text-left">
+					<button type="submit" class="btn btn-info">Save</button>
+				 </div>
+			 </div>
 		 </div>
 		 
+		 
 	 </form>
-     <h6>file uploads display here</h6>	
-	 <p>{{text}}</p>
+    <u> Saved Items</u> 
+	<br>
+	<ul class="list-group list-group-flush">
+		{% for i in objects %}
+
+		<li class="list-group-item"> <a href="{{i.get_url}}">{{i.file_name}}</a> </li>
+		
+		{% endfor %}
+		
+	</ul>
 	</div>
+
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  
+	<div>
+	  {% for message in messages %}
+	  <script>
+		swal("{{message}}");
+	  </script>
+	  {% endfor %}
+	</div> -->
 
 <div class="footer">
      <p>Copyright &copy; 2015 Hotel Booking Widget. All Rights Reserved | Design by <a href="http://w3layouts.com">W3layouts</a></p>
