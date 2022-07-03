@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'upload',
     'account',
     'files',
+    'django_crontab',
 ]
 
 MIDDLEWARE = [
@@ -152,3 +153,8 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'appdemo5979@gmail.com'
 EMAIL_HOST_PASSWORD = 'ukimpnwxuzxtxtrf'
+
+# CRONJOBS
+CRONJOBS = [
+    ('*/2 * * * *', 'upload.cron.my_cron_job')
+]

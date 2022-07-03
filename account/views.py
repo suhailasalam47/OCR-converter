@@ -3,6 +3,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
 
 from .models import Account
+from files.models import Folder
+from upload.models import ImageUploader
 from .forms import RegistrationForm, UserForm
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
@@ -12,6 +14,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
 from project import settings
 from django.contrib.auth.decorators import login_required
+import requests
 
 
 # Create your views here.
@@ -73,13 +76,35 @@ def login(request):
 
         user = auth.authenticate(email=email, password=password)
         if user is not None:
+            # try:
+            #     user = request.user
+            #     folder = Folder.objects.filter(user=user)
+                
+            # except:
+            #     pass
             auth.login(request, user)
-            print("login succesful")
-            return redirect("/")
+            messages.success(request, "Login Successful")
+            
+            url = request.META.get('HTTP_REFERER')
+            try:
+                print("entering inside try")
+                query = requests.utils.urlparse(url).query
+                print('query-----------', query)
+                if query:
+                    params = dict(x.split('=') for x in query.split('&'))
+                    if 'next' in params:
+                        print("entering inside if")
+                        next_page = params['next']
+                        return redirect(next_page)
+                else:
+                    return redirect("/")
+            except:
+                pass
+            
         else:
             messages.error(request, "Invalid credentials")
             return redirect("login")
-
+    
     return render(request, "login.html")
 
 

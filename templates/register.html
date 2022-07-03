@@ -21,40 +21,7 @@ Author URL: http://w3layouts.com
 
 <body>
   <!--/top-header-content-->
-  <div class="template">
-    <header id="site-header" class="fixed-top">
-      <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-dark stroke">
-          <a class="navbar-brand" href="index.html">
-            <span class="fa fa-lightbulb-o"></span> OCR Converter
-          </a>
-          <button class="navbar-toggler bg-gradient" type="button" data-toggle="collapse"
-            data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
-            aria-label="Toggle navigation"><span class="navbar-toggler-icon fa fa-bars"> </span>
-          </button>
-
-          <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link effect-3" href="{% url 'login' %}">Login</a>
-              </li>
-             
-              <li class="nav-item">
-                <a class="nav-link effect-3" href="">Files</a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link effect-3" href="{% url 'upload' %}">Convert</a>
-              </li>
-            </ul>
-
-          </div>
-        </nav>
-      </div>
-    </header>
-  </div>
+  {% include 'include/header.html' %}
   <!--//top-header-content-->
 
   <section class="w3l-inner-page-main">

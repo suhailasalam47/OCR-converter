@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from files.models import Folder, Content
-
+from .models import ImageUploader
 
 try:
     from PIL import Image
@@ -25,6 +25,9 @@ def uploader(request):
     text_from_image = None
     if request.method == "POST":
         img = request.FILES["uploaded_img"]
+        images = ImageUploader()
+        images.image_to_convert = img
+        images.save()
         text_from_image = success(img)
 
         if text_from_image and img:
@@ -44,7 +47,6 @@ def save_document(request):
     if request.method == "POST":
         is_img_save = request.POST.get("checkbox")
         request.session["is_save"] = is_img_save
-        print("check box value=", is_img_save)
         user = request.user
         folder = Folder.objects.filter(user=user)
     else:

@@ -1,12 +1,13 @@
 from django.db import models
 
+from account.models import Account
+
 
 class ImageUploader(models.Model):
-    name = models.CharField(max_length=100)
+    user = models.ForeignKey(Account, on_delete=models.CASCADE, null=True)
     image_to_convert = models.ImageField(upload_to='images/')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    is_save = models.BooleanField(default=False)
     
     
 
