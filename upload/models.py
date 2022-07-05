@@ -10,7 +10,9 @@ class ImageUploader(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     
-
+class PdfUploader(models.Model):
+    pdf_file = models.FileField(upload_to="pdf_converter")
+    created_at = models.DateTimeField(auto_now_add=True)
 
 
     

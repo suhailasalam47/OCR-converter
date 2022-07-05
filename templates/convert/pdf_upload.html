@@ -17,6 +17,7 @@ Author URL: http://w3layouts.com
   <link href="//fonts.googleapis.com/css?family=Hind:400,500,600,700&display=swap" rel="stylesheet">
   <!-- Template CSS -->
 
+ 
 </head>
 
 <body>
@@ -28,26 +29,17 @@ Author URL: http://w3layouts.com
     <div class="breadcrumb-infhny">
       <div class="container">
         <nav aria-label="breadcrumb">
-          <h2 class="hny-title text-center">Login</h2>
+          <h2 class="hny-title text-center">Online Converter</h2>
           <ol class="breadcrumb mb-0">
-            <li><a href="index.html">Home</a>
+            <li><a href="{% url 'index' %}">Home</a>
               <span class="fa fa-angle-double-right"></span></li>
-            <li class="active">Login</li>
+            <li class="active">Convert</li>
           </ol>
         </nav>
       </div>
     </div>
   </section>
 
-  {% if request.GET.command == 'verification' %}
-
-  <div class="container max-auto alert alert-info" role="alert" style="max-width: 900px; margin-top:100px;">
-    Thank you for registering with us.We have sent you a verification email to your email address  <a href="{{reg_form.email}}">{{request.GET.email}}</a> . Please verify it.
-    <br><br>
-    Already verified? <a href="{% url 'login'%}">Login</a>
-  </div>
-
-  {% else %}
 
   <!-- /contact-form -->
   <section class="w3l-contact-main">
@@ -55,51 +47,88 @@ Author URL: http://w3layouts.com
       <div class="container py-lg-3">
         <div class="top-map">
           <div class="map-content-9">
-            <form autocomplete="off" action="{% url 'login' %}" method="post">
-                {% csrf_token %}
+            <form method="post" enctype="multipart/form-data" action="{{ f.get_url }}">
+              {% csrf_token %}
               <div class="form-top1">
-                <h3 class="hny-title text-center mb-lg-5 mb-4" data-aos="fade-down">Login</h3>
-               
-                  <div class="form-top-righ" data-aos="fade-up">
-                    <input type="email" name="email" id="w3lSender" placeholder="Email*" required=""><br>
-                  </div>
-                  <div class="form-top-righ" data-aos="fade-up">
-                    <input type="password" name="password" id="w3lName" placeholder="Password" required="">
-                  </div>
-                  <p class="text-right"> <a href="{% url 'forgot_password' %}"> Forgot Password? </a></p>
+                <h3 class="hny-title text-center mb-lg-5 mb-4" data-aos="fade-down">Upload your Pdf</h3>
+                <div class="form-top-righ" data-aos="fade-up">
+                  
                 </div>
+                 
+              <div class="form-top">
+                <div class="form-top-righ" data-aos="fade-up">
+                
+                <div>
+                    {{form}}
+                </div>
+                  
+                 </div>
+              </div>
+
                 <div class="text-center">
-                  <button type="submit">Login</button>
+                  <button type="submit">Convert</button>
+                 
                 </div>
               </div>
             </form>
           </div>
-          
+           </div>
         </div>
       </div>
 
+     
+       
+      <form action="{% url 'save_document' %}" method="post">
+        {% csrf_token %}
+    <div class="row">
+    <div class="col-md-6">
+      
+            {% if text %}
+      <u><h3 class="text-center">Text from Pdf</h3></u>
+      <div class="text-center">
+      {{text|linebreaks}}
+      </div>
+      {% endif %}
+      </div>
 
-  </section>
+    <div class="col-md-6">
+      
+	    {% if text %}
+     <u><h3 class="text-center">Uploaded Image</h3></u> 
+	     <img src='{{image}}' height="600px" width="500px" id="img" alt="image not supporting">
+
+	     {% endif %}
+      
+    </div>
+  </div>
+
+  {% if text %}
+  <div class="row">
+    <div class="col-6 text-center">
+      <br><br><br>
+      <button type="submit">Save</button>
+    </div>
+    <div class="col-6">
+      <div class="checkbox checkbox-info">
+        <br><br><br>
+        <input id="check4" class="check-info" type="checkbox" name="checkbox">
+        <label for="check4"> Save Image </label>
+      </div>
+          
+          
+    </div>
+
+  </div>
   {% endif %}
+</form>
+  </section>
   <!-- //contact-form -->
 
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  
-  <div>
-    {% for message in messages %}
-    <script>
-      swal("{{message}}");
-    </script>
-    {% endfor %}
-  </div> -->
-  <!-- //contact-form
-
   <!-- footer -->
-  <footer class="w3l-footer-16">
-    <div class="footer-content py-lg-5 py-4 text-center">
-      <div class="container">
+  <footer class="w3l-footer-16 ">
+    <div class="footer-content py-lg-5 py-4 text-center bg-light">
+      <div class="container ">
         <div class="copy-right">
-      
 
           <ul class="footer-gd-16">
             <li>© 2020 Usance. </li>
@@ -113,6 +142,17 @@ Author URL: http://w3layouts.com
         </button>
       </div>
     </div>
+    
+  <!-- messages -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  
+    <div>
+      {% for message in messages %}
+      <script>
+        swal("{{message}}");
+      </script>
+      {% endfor %}
+    </div> -->
 
     <!-- move top -->
     <script>

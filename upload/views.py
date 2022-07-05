@@ -3,16 +3,61 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from files.models import Folder, Content
 from .models import ImageUploader
-
-try:
-    from PIL import Image
-except ImportError:
-    import Image
+from PIL import Image
+from wand.image import Image as wi
 import pytesseract
+from pdf2image import convert_from_path
+from project import settings
+from .forms import PdfForm
 
 
 def index(request):
     return render(request, "index.html")
+    
+
+def convert(request):
+    if request.method == 'POST':
+        if 'image_btn' in request.POST:
+            return redirect("uploader")
+        else:
+            return redirect("pdf_upload")
+    return render(request, "convert/convert.html")
+
+
+def pdf_upload(request):
+    text_from_pdf=None
+    image=None
+    if request.method == "POST":
+        form = PdfForm(request.POST, request.FILES)
+        if form.is_valid():
+            pdf_file = request.FILES['pdf_file']
+            obj=form.save()
+            new_pdf = obj.pdf_file
+            image = pdf_to_img(new_pdf)
+            text_from_pdf=success(image)
+            
+            if text_from_pdf:
+                request.session["text"] = text_from_pdf
+            else:
+                messages.error(request, "no text!!")
+                return redirect("pdf_upload")
+    else:
+        form = PdfForm()
+    context = {
+        'form':form,
+        'text':text_from_pdf,
+        'image':image,
+    }
+    return render(request, 'convert/pdf_upload.html',context)
+
+
+def pdf_to_img(new_pdf):
+    path= settings.MEDIA_ROOT  + '/' + str(new_pdf)
+    images = convert_from_path(path,fmt='png',dpi=300,grayscale=True)
+    image = images[0]
+    image.save("imagen.png")
+    img="imagen.png"
+    return img
 
 
 def success(image):
@@ -39,7 +84,7 @@ def uploader(request):
     context = {
         "text": text_from_image,
     }
-    return render(request, "upload.html", context)
+    return render(request, "convert/upload.html", context)
 
 
 @login_required(login_url="login")
