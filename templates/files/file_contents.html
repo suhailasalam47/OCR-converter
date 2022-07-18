@@ -29,6 +29,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <h1>Saved Documents </h1>
 
 	<div class="container">
+		{% if is_item_exist %}
      <form action="{{ f.get_url }}" method="post">
 		{% csrf_token %}
 		 <div class="row">
@@ -45,6 +46,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		 </div>
 		 
 	 </form>
+	 {% endif %}
     <u> Saved Items</u> 
 	<br>
 	<ul class="list-group list-group-flush">

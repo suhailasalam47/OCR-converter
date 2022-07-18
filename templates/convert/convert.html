@@ -41,26 +41,32 @@ Author URL: http://w3layouts.com
   </section>
 
   <div class="container">
-  
+    <div class="form-top1">
+     <div class="row">
+       &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;&emsp; &emsp; &emsp; &emsp; &emsp; &emsp;&emsp; &emsp; &emsp; &emsp; 
+     
+      <h4 class="hny-title text-center mb-lg-5 mb-0 mt-4" data-aos="fade-down">Convert Text from?</h4>
+     </div>
       <form action="{% url 'convert' %}" method="post">
         {% csrf_token %}
         <div class="row mt-4">
       <div class="col-12 text-center">
-          
-        <img src="{% static 'images/image.png' %}" alt="no img" class="img-fluid p-3" height="150px" width="150px">
-        <img src="{% static 'images/pdf.png' %}" alt="no img" class="img-fluid p-3" height="150px" width="150px">
-
+        <div class="form-top-righ" data-aos="fade-up">
+        <img src="{% static 'images/image.png' %}" alt="no img" class="img-fluid p-2" height="150px" width="150px">
+        <img src="{% static 'images/pdf.png' %}" alt="no img" class="img-fluid p-2" height="150px" width="150px">
+          </div>
       </div>
     </div>
     <div class="row">
       <div class="col-12 text-center">
-        
-        <button class="btn btn-info" type="submit" name="image_btn">Image</button> &nbsp;&nbsp;&ensp; &nbsp;&nbsp;&ensp;&emsp;
+        <div class="form-top-righ" data-aos="fade-up">
+        <button class="btn btn-info" type="submit" name="image_btn">Image</button> &nbsp;&nbsp;&ensp; &nbsp;&nbsp;&ensp;&emsp;&nbsp;&ensp;&emsp;
         <button class="btn btn-info" type="submit" name="pdf_btn">Pdf</button>
+      </div>
     </div>
   </div>
   </form>
-  
+</div>
 </div>
   <!-- //contact-form -->
 
@@ -75,25 +81,7 @@ Author URL: http://w3layouts.com
   </div> -->
   <!-- //contact-form
 
-  <!-- footer -->
-  <footer class="w3l-footer-16">
-    <div class="footer-content py-lg-5 py-4 text-center">
-      <div class="container">
-        <div class="copy-right">
-      
-
-          <ul class="footer-gd-16">
-            <li>© 2020 Usance. </li>
-            <li><a href="#">Support</a></li>
-            <li><a href="#">Privacy</a></li>
-            <li><a href="#">Terms</a></li>
-          </ul>
-        </div>
-        <button onclick="topFunction()" id="movetop" title="Go to top">
-          <span class="fa fa-angle-up"></span>
-        </button>
-      </div>
-    </div>
+ 
 
     <!-- move top -->
     <script>

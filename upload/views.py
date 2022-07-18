@@ -55,8 +55,8 @@ def pdf_to_img(new_pdf):
     path= settings.MEDIA_ROOT  + '/' + str(new_pdf)
     images = convert_from_path(path,fmt='png',dpi=300,grayscale=True)
     image = images[0]
-    image.save("imagen.png")
-    img="imagen.png"
+    image.save("media/folder_images/imagen.png")
+    img="media/folder_images/imagen.png"
     return img
 
 
@@ -65,7 +65,7 @@ def success(image):
     return text
 
 
-# Create your views here.
+# Convert images to text
 def uploader(request):
     text_from_image = None
     if request.method == "POST":
@@ -77,6 +77,9 @@ def uploader(request):
 
         if text_from_image and img:
             request.session["text"] = text_from_image
+            session_img=ImageUploader.objects.get(image_to_convert=images.image_to_convert)
+            request.session["image_key"]=session_img.id
+            
         else:
             messages.error(request, "no text!!")
             return redirect("uploader")
@@ -88,7 +91,7 @@ def uploader(request):
 
 
 @login_required(login_url="login")
-def save_document(request):
+def folders_list(request):
     if request.method == "POST":
         is_img_save = request.POST.get("checkbox")
         request.session["is_save"] = is_img_save
@@ -104,16 +107,19 @@ def save_document(request):
 
 
 @login_required(login_url="login")
-def folder_uploads(request, folder_slug=None):
+def documents_save(request, folder_slug=None):
     categories = None
     item = None
     text_from_image = None
-    print(folder_slug)
+    is_item_exist = None
+    
     if folder_slug != None:
         categories = get_object_or_404(Folder, slug=folder_slug)
-        print(categories)
         item_list = Content.objects.filter(folder=categories)
-        print(item_list)
+        try:
+            is_item_exist = request.session["text"]
+        except:
+            pass
 
         if request.method == "POST":
             file_name = request.POST["file_name"]
@@ -124,19 +130,25 @@ def folder_uploads(request, folder_slug=None):
             item.file_name = file_name
             item.slug = file_name
             item.save()
+            try:
+                if "text" in request.session:
+                    del request.session["text"]
+            except:
+                pass
+
             messages.success(request, "Document saved successfully")
-            # return redirect('save_document')
+            # return redirect('folders_list')
         # else:
         # 	item_list = Content.objects.filter(folder=categories)
     else:
-        return redirect("save_document")
+        return redirect("folders_list")
 
     context = {
         "item": item,
         "text": text_from_image,
         "objects": item_list,
+        "is_item_exist" : is_item_exist,
     }
-    print("folder", item_list)
     return render(request, "files/file_contents.html", context)
 
 
@@ -149,5 +161,4 @@ def file_path(request, folder_slug, file_slug):
         "single_file": single_file,
         "check": check,
     }
-    print("single file", single_file)
     return render(request, "files/file_path.html", context)
