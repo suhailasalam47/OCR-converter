@@ -9,6 +9,8 @@ import pytesseract
 from pdf2image import convert_from_path
 from project import settings
 from .forms import PdfForm
+from django import template
+register = template.Library()
 
 
 def index(request):
@@ -115,7 +117,8 @@ def documents_save(request, folder_slug=None):
     
     if folder_slug != None:
         categories = get_object_or_404(Folder, slug=folder_slug)
-        item_list = Content.objects.filter(folder=categories)
+        item_list = Content.objects.filter(folder=categories).order_by('file_name').values()
+       
         try:
             is_item_exist = request.session["text"]
         except:
