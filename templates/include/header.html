@@ -21,9 +21,7 @@
 							</li>
 							
 							{% if user.is_authenticated %}
-							<li class="nav-item">
-								<a class="nav-link effect-3" href="{% url 'logout' %}">Logout</a>
-							</li>
+							
 							<li class="nav-item">
 								<a class="nav-link effect-3" href="{% url 'profile' %}">Profile</a>
 							</li>
@@ -41,6 +39,9 @@
 							</li>
 							<li class="nav-item">
 								<a class="nav-link effect-3" href="{% url 'folders_list' %}">Files</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link effect-3" href="{% url 'logout' %}">Logout</a>
 							</li>
 							
 						</ul>
