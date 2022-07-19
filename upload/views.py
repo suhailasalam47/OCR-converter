@@ -136,9 +136,10 @@ def documents_save(request, folder_slug=None):
                     del request.session["text"]
             except:
                 pass
-
-            messages.success(request, "Document saved successfully")
-            # return redirect('folders_list')
+            
+            messages.success(request, "Document saved successfully in "+ str(categories))
+            return redirect('folders_list')
+            
         # else:
         # 	item_list = Content.objects.filter(folder=categories)
     else:
