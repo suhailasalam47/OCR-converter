@@ -31,9 +31,28 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <div class="col-md-6 text-center">
       
       <h1 >Text from Image</h1>
-      <p>{{single_file.folder_text|linebreaks}}</p>
-       
+      <p id="myInput"> {{single_file.folder_text|linebreaks}}</p>
+	  <button onclick="myFunction()">Copy text</button>
+
+	  <script>
+		  
+		function myFunction() {
+			console.log("inside function------")
+		/* Select text area by id*/
+		var Text = document.getElementById("myInput");
+
+		/* Select the text inside text area. */
+		Text.select();
+
+		/* Copy selected text into clipboard */
+		navigator.clipboard.writeText(Text.value);
+		}
+	</script>
       </div>
+
+
+		
+	
 
     <div class="col-md-6">
       
