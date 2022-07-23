@@ -34,13 +34,20 @@ def pdf_upload(request):
             pdf_file = request.FILES['pdf_file']
             obj=form.save()
             new_pdf = obj.pdf_file
-            image = pdf_to_img(new_pdf)
-            text_from_pdf=success(image)
+
+            file= settings.MEDIA_ROOT + '/' + str(new_pdf)
+            file_extension = pathlib.Path(file).suffix
+            try:
+                if file_extension.endswith((".pdf")):
+                    image = pdf_to_img(new_pdf)
+                    text_from_pdf=success(image)
+            except:
+                pass
             
             if text_from_pdf:
                 request.session["text"] = text_from_pdf
             else:
-                messages.error(request, "no text!!")
+                messages.error(request, "Invalid file format !!")
                 return redirect("pdf_upload")
     else:
         form = PdfForm()
