@@ -9,6 +9,7 @@ import pytesseract
 from pdf2image import convert_from_path
 from project import settings
 from .forms import PdfForm
+import pathlib
 
 
 def index(request):
@@ -73,7 +74,14 @@ def uploader(request):
         images = ImageUploader()
         images.image_to_convert = img
         images.save()
-        text_from_image = success(img)
+        
+        file= settings.MEDIA_ROOT + '/' + str(img)
+        file_extension = pathlib.Path(file).suffix
+        try:
+            if file_extension.endswith((".png", ".jpg", ".jpeg", ".webp", ".gif")):
+                text_from_image = success(img)
+        except:
+            pass
 
         if text_from_image and img:
             request.session["text"] = text_from_image
@@ -81,7 +89,7 @@ def uploader(request):
             request.session["image_key"]=session_img.id
             
         else:
-            messages.error(request, "no text!!")
+            messages.error(request, "Invalid file format!!")
             return redirect("uploader")
 
     context = {
