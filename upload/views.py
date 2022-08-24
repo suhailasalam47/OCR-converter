@@ -173,7 +173,10 @@ def file_path(request, folder_slug, file_slug):
     single_file = Content.objects.get(
         folder__slug=folder_slug, slug=file_slug
     )
-    check = request.session["is_save"]
+    try:
+        check = request.session["is_save"]
+    except:
+        check=None
     context = {
         "single_file": single_file,
         "check": check,

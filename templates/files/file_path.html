@@ -31,21 +31,25 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <div class="col-md-6 text-center">
       
       <h1 >Text from Image</h1>
-      <p id="myInput"> {{single_file.folder_text|linebreaks}}</p>
-	  <button onclick="myFunction()">Copy text</button>
-
+      <pre id="myInput"> {{single_file.folder_text|linebreaks}}</pre> <br>
+	  <button class="btn btn-outline-secondary" onclick="myFunction()">Copy</button>
+		
 	  <script>
 		  
 		function myFunction() {
 			console.log("inside function------")
 		/* Select text area by id*/
 		var Text = document.getElementById("myInput");
+		console.log(Text)
+		var a = Text.innerHTML
+		console.log(a)
+		var strippedHtml = a.replace(/<[^>]+>/g, '');
 
-		/* Select the text inside text area. */
-		Text.select();
-
+		// Jimbo.
+		// That's what she said
+		console.log(strippedHtml);
 		/* Copy selected text into clipboard */
-		navigator.clipboard.writeText(Text.value);
+		navigator.clipboard.writeText(strippedHtml);
 		}
 	</script>
       </div>
