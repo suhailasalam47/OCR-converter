@@ -4,4 +4,4 @@ from django import forms
 class PdfForm(forms.ModelForm):
     class Meta:
         model = PdfUploader
-        fields = '__all__'
+        fields = ['pdf_file',]

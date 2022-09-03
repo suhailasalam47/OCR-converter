@@ -29,6 +29,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <h1>Saved Documents </h1>
 
 	<div class="container">
+		{% if is_item_exist %}
      <form action="{{ f.get_url }}" method="post">
 		{% csrf_token %}
 		 <div class="row">
@@ -45,17 +46,26 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		 </div>
 		 
 	 </form>
-    <u> Saved Items</u> 
+	 {% endif %}
+	 </div>
+    
 	<br>
-	<ul class="list-group list-group-flush">
+	<div class="container">
+	<div class="row ">
 		{% for i in objects %}
+	<div class=" col-3 p-3 card m-3">
+		
+		
 
-		<li class="list-group-item"> <a href="{{i.get_url}}">{{i.file_name}}</a> </li>
+		 <a class="p-2" href="{{i.get_url}}">{{i.file_name}}</a> 
 		
-		{% endfor %}
 		
-	</ul>
-	</div>
+	
+</div>
+{% endfor %}
+</div>
+</div>
+	
 
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   

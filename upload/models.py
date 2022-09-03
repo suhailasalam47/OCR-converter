@@ -1,5 +1,4 @@
 from django.db import models
-
 from account.models import Account
 
 
@@ -13,6 +12,7 @@ class ImageUploader(models.Model):
 class PdfUploader(models.Model):
     pdf_file = models.FileField(upload_to="pdf_converter")
     created_at = models.DateTimeField(auto_now_add=True)
-
+    pdf_image = models.ImageField(upload_to='pdf_image/')
+    
 
     

@@ -46,7 +46,7 @@ Author URL: http://w3layouts.com
       <div class="container py-lg-3">
         <div class="top-map">
           <div class="map-content-9">
-            <form action="{% url 'register' %}" method="post">
+            <form action="{% url 'register' %}" method="post" autocomplete="off">
                 {% csrf_token %}
               <div class="form-top1">
                 <h3 class="hny-title text-center mb-lg-5 mb-4" data-aos="fade-down">Registration Form</h3>

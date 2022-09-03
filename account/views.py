@@ -76,24 +76,27 @@ def login(request):
 
         user = auth.authenticate(email=email, password=password)
         if user is not None:
-            # try:
-            #     user = request.user
-            #     folder = Folder.objects.filter(user=user)
-                
-            # except:
-            #     pass
+            try:
+                is_img_exist = request.session["image_key"]
+                if is_img_exist:
+                    img_obj=ImageUploader.objects.get(id=is_img_exist)
+                    img_obj.user = user
+                    img_obj.save()
+                    is_img_save = request.POST.get("checkbox")
+                    request.session["is_save"] = is_img_save 
+                    print("image save ---------------",is_img_save)  
+            except:
+                pass
             auth.login(request, user)
             messages.success(request, "Login Successful")
             
             url = request.META.get('HTTP_REFERER')
             try:
-                print("entering inside try")
                 query = requests.utils.urlparse(url).query
-                print('query-----------', query)
+               
                 if query:
                     params = dict(x.split('=') for x in query.split('&'))
                     if 'next' in params:
-                        print("entering inside if")
                         next_page = params['next']
                         return redirect(next_page)
                 else:
@@ -146,7 +149,6 @@ def forgot_password(request):
                     "token": default_token_generator.make_token(user),
                 },
             )
-
             to_email = email
             email_from = settings.EMAIL_HOST_USER
             send_email = EmailMessage(

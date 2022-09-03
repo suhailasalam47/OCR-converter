@@ -6,14 +6,14 @@ urlpatterns = [
     path("convert/", views.convert, name="convert"),
     path("uploader", views.uploader, name="uploader"),
     path("pdf_upload", views.pdf_upload, name="pdf_upload"),
-    path("save_document/", views.save_document, name="save_document"),
+    path("folders_list/", views.folders_list, name="folders_list"),
     path(
-        "save_document/<slug:folder_slug>/",
-        views.folder_uploads,
+        "folders_list/<slug:folder_slug>/",
+        views.documents_save,
         name="folder_category",
     ),
     path(
-        "save_document/<slug:folder_slug>/<slug:file_slug>/",
+        "folders_list/<slug:folder_slug>/<slug:file_slug>/",
         views.file_path,
         name="file_path",
     ),

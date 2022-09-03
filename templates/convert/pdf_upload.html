@@ -33,7 +33,7 @@ Author URL: http://w3layouts.com
           <ol class="breadcrumb mb-0">
             <li><a href="{% url 'index' %}">Home</a>
               <span class="fa fa-angle-double-right"></span></li>
-            <li class="active">Convert</li>
+            <li class="active">Convert from Pdf</li>
           </ol>
         </nav>
       </div>
@@ -78,7 +78,7 @@ Author URL: http://w3layouts.com
 
      
        
-      <form action="{% url 'save_document' %}" method="post">
+      <form action="{% url 'folders_list' %}" method="post">
         {% csrf_token %}
     <div class="row">
     <div class="col-md-6">
@@ -95,7 +95,19 @@ Author URL: http://w3layouts.com
       
 	    {% if text %}
      <u><h3 class="text-center">Uploaded Image</h3></u> 
-	     <img src='{{image}}' height="600px" width="500px" id="img" alt="image not supporting">
+	     <img src='{{image}}' height="600px" width="500px" id="Input" alt="image not supporting">
+
+       <script> 
+        document.querySelector('#Input').addEventListener("change", function() {
+          const reader = new FileReader();
+  
+          reader.addEventListener("load", () => {
+              localStorage.setItem("recent-image", reader.result);
+          });
+  
+          reader.readAsDataURL(this.files[0]);
+      });
+    </script>
 
 	     {% endif %}
       

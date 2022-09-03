@@ -33,7 +33,7 @@ Author URL: http://w3layouts.com
           <ol class="breadcrumb mb-0">
             <li><a href="{% url 'index' %}">Home</a>
               <span class="fa fa-angle-double-right"></span></li>
-            <li class="active">Convert</li>
+            <li class="active">Convert from Image</li>
           </ol>
         </nav>
       </div>
@@ -91,7 +91,7 @@ Author URL: http://w3layouts.com
 
      
        
-      <form action="{% url 'save_document' %}" method="post">
+      <form action="{% url 'folders_list' %}" method="post">
         {% csrf_token %}
     <div class="row">
     <div class="col-md-6">
