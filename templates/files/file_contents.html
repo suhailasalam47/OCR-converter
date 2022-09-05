@@ -66,16 +66,18 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </div>
 </div>
 	
-
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  
-	<div>
-	  {% for message in messages %}
-	  <script>
-		swal("{{message}}");
-	  </script>
-	  {% endfor %}
-	</div> -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<div>
+	{% for message in messages %}
+	<script>
+		Swal.fire({
+			icon: '{{message.tags}}',
+			text: "{{message}}",
+			
+		  })
+	</script>
+	{% endfor %}
+  </div>
 
 <div class="footer">
      <p>Copyright &copy; 2015 Hotel Booking Widget. All Rights Reserved | Design by <a href="http://w3layouts.com">W3layouts</a></p>

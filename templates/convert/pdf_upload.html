@@ -156,15 +156,18 @@ Author URL: http://w3layouts.com
     </div>
     
   <!-- messages -->
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  
-    <div>
-      {% for message in messages %}
-      <script>
-        swal("{{message}}");
-      </script>
-      {% endfor %}
-    </div> -->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<div>
+	{% for message in messages %}
+	<script>
+		Swal.fire({
+			icon: '{{message.tags}}',
+			text: "{{message}}",
+			
+		  })
+	</script>
+	{% endfor %}
+  </div>
 
     <!-- move top -->
     <script>

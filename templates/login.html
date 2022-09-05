@@ -82,19 +82,21 @@ Author URL: http://w3layouts.com
   </section>
   {% endif %}
   <!-- //contact-form -->
-
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <div>
     {% for message in messages %}
     <script>
-      swal("{{message}}");
+      Swal.fire({
+        icon: '{{message.tags}}',
+        text: "{{message}}",
+        
+        })
     </script>
     {% endfor %}
-  </div> -->
+    </div>
   <!-- //contact-form
 
-  <!-- footer -->
+   footer -->
   <footer class="w3l-footer-16">
     <div class="footer-content py-lg-5 py-4 text-center">
       <div class="container">

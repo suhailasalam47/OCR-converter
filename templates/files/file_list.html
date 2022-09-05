@@ -51,13 +51,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 </body>
 </html>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <div>
-  {% for message in messages %}
-  <script>
-	swal("{{message}}");
-  </script>
-  {% endfor %}
-</div> -->
+	{% for message in messages %}
+	<script>
+		Swal.fire({
+			icon: '{{message.tags}}',
+			text: "{{message}}",
+			
+		  })
+	</script>
+	{% endfor %}
+  </div>
 
